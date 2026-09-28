@@ -2,7 +2,7 @@
 
 [![tests](https://github.com/freeb5d/kete-books/actions/workflows/tests.yml/badge.svg)](https://github.com/freeb5d/kete-books/actions/workflows/tests.yml)
 
-A simple, bilingual (**English** / **Te Reo Māori**) accounting system for small businesses, built with **Laravel 11**. Designed as a portfolio piece to show real double-entry bookkeeping logic — not just a CRUD demo.
+A simple, bilingual (**English** / **Te Reo Māori**) accounting system for small businesses, built with **Laravel 12**. Designed as a portfolio piece to show real double-entry bookkeeping logic — not just a CRUD demo.
 
 ## Screenshots
 
@@ -27,7 +27,7 @@ Most "accounting app" tutorials just have a `transactions` table with a signed a
 
 ## Stack
 
-- Laravel 11 (PHP 8.2+)
+- Laravel 12 (PHP 8.2+)
 - MySQL (SQLite in-memory for tests)
 - `mcamara/laravel-localization` for i18n routing
 - TailwindCSS (via CDN in this skeleton — swap for Vite build in production)

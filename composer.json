@@ -6,9 +6,9 @@
     "license": "MIT",
     "require": {
         "php": "^8.2",
-        "laravel/framework": "^11.0",
+        "laravel/framework": "^12.61.1",
         "laravel/tinker": "^2.9",
-        "mcamara/laravel-localization": "^2.2"
+        "mcamara/laravel-localization": "^2.3"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",

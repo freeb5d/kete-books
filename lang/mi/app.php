@@ -50,4 +50,11 @@ return [
         'income' => 'Moni Whiwhi',
         'expense' => 'Whakapaunga',
     ],
+
+    'auth' => [
+        'log_in' => 'Takiuru',
+        'email' => 'Īmēra',
+        'password' => 'Kupuhipa',
+        'remember' => 'Maumahara ki ahau',
+    ],
 ];

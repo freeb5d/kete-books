@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\DB;
 
 class Business extends Model
 {
@@ -18,6 +19,7 @@ class Business extends Model
     protected $casts = [
         'gst_registered' => 'boolean',
         'gst_rate' => 'decimal:2',
+        'invoice_sequence' => 'integer',
     ];
 
     public function user(): BelongsTo
@@ -43,6 +45,22 @@ class Business extends Model
     public function invoices(): HasMany
     {
         return $this->hasMany(Invoice::class);
+    }
+
+    /**
+     * Reserves the next invoice number (INV-0001, INV-0002, ...). The business
+     * row is locked while the counter is bumped, so concurrent requests are
+     * serialised and numbers are never reused, even if invoices are deleted.
+     */
+    public function nextInvoiceNumber(): string
+    {
+        return DB::transaction(function () {
+            $locked = static::whereKey($this->getKey())->lockForUpdate()->firstOrFail();
+            $locked->increment('invoice_sequence');
+            $this->invoice_sequence = $locked->invoice_sequence;
+
+            return 'INV-'.str_pad((string) $locked->invoice_sequence, 4, '0', STR_PAD_LEFT);
+        });
     }
 
     /**

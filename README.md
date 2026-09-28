@@ -1,6 +1,20 @@
 # Kete Books 🧺
 
+[![tests](https://github.com/freeb5d/kete-books/actions/workflows/tests.yml/badge.svg)](https://github.com/freeb5d/kete-books/actions/workflows/tests.yml)
+
 A simple, bilingual (**English** / **Te Reo Māori**) accounting system for small businesses, built with **Laravel 11**. Designed as a portfolio piece to show real double-entry bookkeeping logic — not just a CRUD demo.
+
+## Screenshots
+
+| Dashboard (English) | Papa Mataaho (Te Reo Māori) |
+|---|---|
+| ![Dashboard](docs/screenshots/dashboard-en.png) | ![Dashboard in Te Reo Māori](docs/screenshots/dashboard-mi.png) |
+
+| Chart of Accounts | Invoice with GST split |
+|---|---|
+| ![Chart of accounts](docs/screenshots/accounts.png) | ![Invoice](docs/screenshots/invoice.png) |
+
+<sub>Screenshots use the demo data from `DemoSeeder`.</sub>
 
 ## Why this project
 
@@ -14,9 +28,8 @@ Most "accounting app" tutorials just have a `transactions` table with a signed a
 ## Stack
 
 - Laravel 11 (PHP 8.2+)
-- MySQL
+- MySQL (SQLite in-memory for tests)
 - `mcamara/laravel-localization` for i18n routing
-- `barryvdh/laravel-dompdf` for invoice PDFs
 - TailwindCSS (via CDN in this skeleton — swap for Vite build in production)
 
 ## Getting started
@@ -33,7 +46,7 @@ php artisan db:seed --class=DemoSeeder   # optional demo data
 php artisan serve
 ```
 
-Visit `http://localhost:8000/en/dashboard` or `http://localhost:8000/mi/dashboard`.
+Log in at `http://localhost:8000/login` as `demo@ketebooks.test` / `password` (after seeding), then visit `http://localhost:8000/en/dashboard` or `http://localhost:8000/mi/dashboard`.
 
 ## Running tests
 
@@ -45,6 +58,12 @@ The key test (`LedgerServiceTest`) proves:
 1. A balanced transaction posts successfully and account balances update correctly.
 2. An unbalanced transaction is **rejected** with `UnbalancedTransactionException`.
 3. Issuing a GST-inclusive invoice correctly splits the GST portion into the `GST Payable` liability account, and the resulting journal entry still balances.
+
+`LedgerValidationTest` and `InvoiceControllerTest` also cover:
+- entries with one line, zero or negative amounts, both-sided lines, or another business's accounts are rejected;
+- amounts are compared in integer cents, so float drift can't break balancing;
+- users can't view, send, or bill against another business's invoices or customers (404 / validation error);
+- sending an invoice twice posts to the ledger only once, and invoice numbers are sequential and never reused.
 
 ## Project structure highlights
 
@@ -73,7 +92,7 @@ The Māori translations in `lang/mi/*.php` were written to be clear and directio
 
 - [ ] Bank statement CSV import + reconciliation matching
 - [ ] Profit & Loss and Balance Sheet report pages (the account balance logic is already there in `Account::balance()`)
-- [ ] Invoice PDF export (dompdf is already in `composer.json`)
+- [ ] Invoice PDF export (e.g. with `barryvdh/laravel-dompdf`)
 - [ ] Multi-currency support beyond the single `currency` field
 - [ ] Recurring invoices
 

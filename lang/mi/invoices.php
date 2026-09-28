@@ -17,4 +17,9 @@ return [
     'add_line' => 'Tāpiri Raina',
     'mark_as_sent' => 'Tohu kua tukuna',
     'no_invoices' => 'Kāore anō he nama utu.',
+
+    'number' => 'Tau',
+    'quantity' => 'Te maha',
+    'unit_price' => 'Utu ia wae',
+    'no_gst' => 'kāore he GST',
 ];

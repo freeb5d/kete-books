@@ -23,7 +23,7 @@ return new class extends Migration
         });
 
         // The double-entry backbone: every transaction has 2+ lines,
-        // and sum(debit) MUST equal sum(credit) for the transaction — enforced in app logic (see TransactionService).
+        // and sum(debit) MUST equal sum(credit) for the transaction — enforced in app logic (see App\Services\LedgerService).
         Schema::create('transaction_lines', function (Blueprint $table) {
             $table->id();
             $table->foreignId('transaction_id')->constrained()->cascadeOnDelete();

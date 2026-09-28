@@ -6,4 +6,7 @@ return [
     'add_account' => 'Add account',
     'balance' => 'Balance',
     'code' => 'Code',
+
+    'name' => 'Name',
+    'type' => 'Type',
 ];

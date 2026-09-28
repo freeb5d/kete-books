@@ -18,6 +18,13 @@
                 <a href="{{ route('accounts.index') }}">{{ __('app.nav.accounts') }}</a>
                 <a href="{{ route('invoices.index') }}">{{ __('app.nav.invoices') }}</a>
 
+                @auth
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+                        <button class="text-gray-500">{{ __('app.nav.logout') }}</button>
+                    </form>
+                @endauth
+
                 {{-- Language switcher: preserves the current route in both locales --}}
                 <div class="flex gap-2 border-l pl-4">
                     @foreach (\Mcamara\LaravelLocalization\Facades\LaravelLocalization::getSupportedLocales() as $localeCode => $properties)

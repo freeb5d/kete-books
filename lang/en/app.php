@@ -39,4 +39,11 @@ return [
         'income' => 'Income',
         'expense' => 'Expense',
     ],
+
+    'auth' => [
+        'log_in' => 'Log in',
+        'email' => 'Email',
+        'password' => 'Password',
+        'remember' => 'Remember me',
+    ],
 ];

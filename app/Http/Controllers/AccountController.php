@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class AccountController extends Controller
 {
@@ -10,6 +11,7 @@ class AccountController extends Controller
     {
         $accounts = $request->user()->currentBusiness
             ->accounts()
+            ->withBalanceTotals()
             ->orderBy('code')
             ->get()
             ->groupBy('type');
@@ -19,13 +21,15 @@ class AccountController extends Controller
 
     public function store(Request $request)
     {
+        $business = $request->user()->currentBusiness;
+
         $validated = $request->validate([
-            'code' => ['required', 'string', 'max:10'],
+            'code' => ['required', 'string', 'max:10', Rule::unique('accounts', 'code')->where('business_id', $business->id)],
             'name' => ['required', 'string', 'max:255'],
             'type' => ['required', 'in:asset,liability,equity,income,expense'],
         ]);
 
-        $request->user()->currentBusiness->accounts()->create($validated);
+        $business->accounts()->create($validated);
 
         return back()->with('status', __('accounts.created_successfully'));
     }

@@ -13,7 +13,8 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 | Every route below is automatically available at both
 |   /en/...   and   /mi/...
 | via mcamara/laravel-localization's group middleware.
-| e.g. /mi/putunga-moni (dashboard) and /en/dashboard both resolve here.
+| e.g. /en/dashboard and /mi/dashboard both resolve here. Only the locale
+| prefix changes; the path segments themselves are not translated.
 */
 Route::group([
     'prefix' => LaravelLocalization::setLocale(),

@@ -6,4 +6,7 @@ return [
     'add_account' => 'Tāpiri pūkete',
     'balance' => 'Toenga',
     'code' => 'Waehere',
+
+    'name' => 'Ingoa',
+    'type' => 'Momo',
 ];

@@ -17,4 +17,9 @@ return [
     'add_line' => 'Add line item',
     'mark_as_sent' => 'Mark as sent',
     'no_invoices' => 'No invoices yet.',
+
+    'number' => 'Number',
+    'quantity' => 'Qty',
+    'unit_price' => 'Unit price',
+    'no_gst' => 'no GST',
 ];

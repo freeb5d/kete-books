@@ -51,27 +51,44 @@ class Invoice extends Model
      */
     public function recalculateTotals(): void
     {
-        $gstRate = (float) $this->business->gst_rate / 100;
-
-        $subtotal = 0.0;
-        $gstTotal = 0.0;
+        // Work in integer cents: each line is rounded to the cent (matching the
+        // stored line_total), and GST is rounded once on the invoice total.
+        $subtotalCents = 0;
+        $gstableCents = 0;
 
         foreach ($this->lines as $line) {
-            $lineAmount = (float) $line->quantity * (float) $line->unit_price;
-            $subtotal += $lineAmount;
+            $lineCents = (int) round((float) $line->quantity * (float) $line->unit_price * 100);
+            $subtotalCents += $lineCents;
 
             if ($line->gst_applicable && $this->business->gst_registered) {
-                $gstTotal += $lineAmount * $gstRate;
+                $gstableCents += $lineCents;
             }
         }
 
-        $this->subtotal = round($subtotal, 2);
-        $this->gst_total = round($gstTotal, 2);
-        $this->total = round($subtotal + $gstTotal, 2);
+        $gstCents = (int) round($gstableCents * (float) $this->business->gst_rate / 100);
+
+        $this->subtotal = $subtotalCents / 100;
+        $this->gst_total = $gstCents / 100;
+        $this->total = ($subtotalCents + $gstCents) / 100;
     }
 
+    public static function lineTotal(float|string $quantity, float|string $unitPrice): float
+    {
+        return round((float) $quantity * (float) $unitPrice, 2);
+    }
+
+    /**
+     * "Overdue" is derived from the due date rather than stored, so it can
+     * never go stale. The 'overdue' enum value is kept only for backwards
+     * compatibility and is never written.
+     */
     public function isOverdue(): bool
     {
-        return $this->status === 'sent' && $this->due_date->isPast();
+        return $this->status === 'sent' && $this->due_date->endOfDay()->isPast();
+    }
+
+    public function displayStatus(): string
+    {
+        return $this->isOverdue() ? 'overdue' : $this->status;
     }
 }

@@ -39,7 +39,7 @@ class DemoSeeder extends Seeder
 
         $invoice = $business->invoices()->create([
             'customer_id' => $customer->id,
-            'number' => 'INV-0001',
+            'number' => $business->nextInvoiceNumber(),
             'issue_date' => now()->subDays(5),
             'due_date' => now()->addDays(9),
             'status' => 'draft',
@@ -58,9 +58,9 @@ class DemoSeeder extends Seeder
         $invoice->recalculateTotals();
         $invoice->save();
 
-        app(LedgerService::class)->postInvoiceIssued($invoice);
-        $invoice->update(['status' => 'sent']);
+        $transaction = app(LedgerService::class)->postInvoiceIssued($invoice);
+        $invoice->update(['status' => 'sent', 'transaction_id' => $transaction->id]);
 
-        $this->command?->info("Demo data seeded. Login as: {$user->email}");
+        $this->command?->info("Demo data seeded. Log in as {$user->email} with password \"password\".");
     }
 }

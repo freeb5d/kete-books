@@ -1,5 +1,5 @@
 {
-    "name": "kavehsoft/kete-books",
+    "name": "freeb5d/kete-books",
     "type": "project",
     "description": "Kete Books — a bilingual (English / Te Reo Māori) simple accounting system for small businesses, built with Laravel.",
     "keywords": ["laravel", "accounting", "double-entry", "i18n", "te-reo-maori"],
@@ -8,12 +8,10 @@
         "php": "^8.2",
         "laravel/framework": "^11.0",
         "laravel/tinker": "^2.9",
-        "mcamara/laravel-localization": "^2.2",
-        "barryvdh/laravel-dompdf": "^3.0",
-        "livewire/livewire": "^3.5"
+        "mcamara/laravel-localization": "^2.2"
     },
     "require-dev": {
-        "fakerker/faker": "^1.23",
+        "fakerphp/faker": "^1.23",
         "laravel/pint": "^1.13",
         "laravel/sail": "^1.26",
         "mockery/mockery": "^1.6",
@@ -33,6 +31,7 @@
         }
     },
     "scripts": {
+        "test": "@php artisan test",
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php artisan package:discover --ansi"

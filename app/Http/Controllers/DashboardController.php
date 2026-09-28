@@ -10,7 +10,7 @@ class DashboardController extends Controller
     {
         $business = $request->user()->currentBusiness;
 
-        $accounts = $business->accounts()->where('is_active', true)->get();
+        $accounts = $business->accounts()->where('is_active', true)->withBalanceTotals()->get();
 
         $totalIncome = $accounts->where('type', 'income')->sum(fn ($a) => $a->balance());
         $totalExpense = $accounts->where('type', 'expense')->sum(fn ($a) => $a->balance());
@@ -20,7 +20,7 @@ class DashboardController extends Controller
 
         $overdueInvoices = $business->invoices()
             ->where('status', 'sent')
-            ->where('due_date', '<', now())
+            ->whereDate('due_date', '<', now()->toDateString())
             ->with('customer')
             ->get();
 

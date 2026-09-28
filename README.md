@@ -14,6 +14,10 @@ A simple, bilingual (**English** / **Te Reo Māori**) accounting system for smal
 |---|---|
 | ![Chart of accounts](docs/screenshots/accounts.png) | ![Invoice](docs/screenshots/invoice.png) |
 
+| Invoices (overdue is derived from the due date) |
+|---|
+| ![Invoices list](docs/screenshots/invoices.png) |
+
 <sub>Screenshots use the demo data from `DemoSeeder`.</sub>
 
 ## Why this project

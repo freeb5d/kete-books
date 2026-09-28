@@ -13,20 +13,20 @@
             <p class="text-2xl font-semibold text-rose-600">{{ $business->currency }} {{ number_format($totalExpense, 2) }}</p>
         </div>
         <div class="bg-white rounded-lg shadow-sm border p-4">
-            <p class="text-xs text-gray-500 uppercase">Net Profit</p>
+            <p class="text-xs text-gray-500 uppercase">{{ __('app.dashboard.net_profit') }}</p>
             <p class="text-2xl font-semibold {{ $netProfit >= 0 ? 'text-emerald-700' : 'text-rose-600' }}">
                 {{ $business->currency }} {{ number_format($netProfit, 2) }}
             </p>
         </div>
         <div class="bg-white rounded-lg shadow-sm border p-4">
-            <p class="text-xs text-gray-500 uppercase">GST Payable</p>
+            <p class="text-xs text-gray-500 uppercase">{{ __('app.dashboard.gst_payable') }}</p>
             <p class="text-2xl font-semibold text-amber-600">{{ $business->currency }} {{ number_format($gstPayable, 2) }}</p>
         </div>
     </div>
 
     @if ($overdueInvoices->isNotEmpty())
         <div class="bg-white rounded-lg shadow-sm border p-4">
-            <h2 class="font-semibold mb-3">Overdue Invoices</h2>
+            <h2 class="font-semibold mb-3">{{ __('app.dashboard.overdue_invoices') }}</h2>
             <ul class="divide-y">
                 @foreach ($overdueInvoices as $invoice)
                     <li class="py-2 flex justify-between text-sm">

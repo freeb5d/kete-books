@@ -57,4 +57,10 @@ return [
         'password' => 'Kupuhipa',
         'remember' => 'Maumahara ki ahau',
     ],
+
+    'dashboard' => [
+        'net_profit' => 'Moni Whiwhi Mā',
+        'gst_payable' => 'GST Hei Utu',
+        'overdue_invoices' => 'Nama Utu Kua Paheke',
+    ],
 ];

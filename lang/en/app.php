@@ -46,4 +46,10 @@ return [
         'password' => 'Password',
         'remember' => 'Remember me',
     ],
+
+    'dashboard' => [
+        'net_profit' => 'Net Profit',
+        'gst_payable' => 'GST Payable',
+        'overdue_invoices' => 'Overdue Invoices',
+    ],
 ];

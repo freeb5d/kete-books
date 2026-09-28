@@ -6,3 +6,5 @@
 /storage/*.key
 /.phpunit.cache
 /public/build
+/database/*.sqlite
+.phpunit.result.cache
